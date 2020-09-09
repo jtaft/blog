@@ -1,0 +1,37 @@
+<div id="navigation-bar"></div>
+
+<script>
+const c = React.createElement;
+// create classes
+//style: "body { padding-top: 70px; }" 
+
+const NavBar =
+  React.createElement( "nav", { className: "navbar navbar-inverse navbar-fixed-top"},
+      React.createElement( "div", { className: "container-fluid" },
+        React.createElement( "ul", { className: "nav navbar-nav jays-nav" },
+          React.createElement( "li", { className: "active", key: "Home" },
+            React.createElement( "a", { href: "/" }, "Home")
+	  ), React.createElement( "li", {key: "Archive"},
+            React.createElement( "a", { href: "/archive" }, "Archive")
+          ),
+	  React.createElement( "li", {key: "About"},
+            React.createElement( "a", { href: "/about" }, "About")
+          )
+        )
+      )
+    );
+	    
+ReactDOM.render(NavBar, document.getElementById("navigation-bar"));
+// render NavBar
+
+var setActive = function(selection) {
+  var childNodes = document.getElementsByClassName("jays-nav")[0].childNodes;
+  for(var i = 0; i < childNodes.length; i ++) {
+    if (childNodes[i].innerText !== selection) {
+      childNodes[i].removeAttribute("class");
+    } else {
+      childNodes[i].setAttribute("class", "active");
+    }
+  }
+};
+</script>

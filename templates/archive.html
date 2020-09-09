@@ -1,0 +1,41 @@
+{% include 'imports.html' %}
+{% include 'jays-navbar.html' %}
+
+
+<style type="text/css">
+  body{
+    margin: 70px;
+    width: 625;
+    font-family: "Courier New", Courier, monospace;
+  }
+</style>
+
+<h1>Archive</h1>
+<div id="content"></div>
+
+<script>
+
+  setActive("Archive"); 
+
+  var setLinks = function() {
+    var archive = {{archive|tojson|safe}};
+    var linkList = [];
+    var keys = Object.keys(archive);
+
+    for (var i = 0; i < keys.length; i++) {
+      linkList.push(React.createElement('a',
+        {
+          key: linkList.length,
+          href: "archive/" + archive[keys[i]]
+        },
+        archive[keys[i]]
+      ));
+      linkList.push(React.createElement('br', {key: linkList.length}));
+    }
+    return linkList;
+  };
+
+  const rootElement = React.createElement('div', {}, setLinks());
+  ReactDOM.render(rootElement, document.getElementById('content'));
+
+</script>

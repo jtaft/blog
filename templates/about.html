@@ -1,0 +1,23 @@
+{% include 'imports.html' %}
+{% include 'jays-navbar.html' %}
+
+<style type="text/css">
+  body{
+    margin: 70px;
+    width: 625;
+    font-family: "Courier New", Courier, monospace;
+  }
+</style>
+
+<title>About</title>
+<h1>About</h1>
+
+<div id="content"></div>
+
+<script>
+  setActive("About");
+
+  const rootElement =
+    React.createElement('p', {}, "If I ever feel like letting you know more about me it'll be here.");
+  ReactDOM.render(rootElement, document.getElementById('content'));
+</script>

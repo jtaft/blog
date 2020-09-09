@@ -1,0 +1,65 @@
+{% include 'imports.html' %}
+{% include 'jays-navbar.html' %}
+
+<style type="text/css">
+  body{
+    margin: 70px;
+    width: 625;
+    font-family: "Courier New", Courier, monospace;
+  }
+</style>
+
+
+<div id="header"></div>
+<div id="content"></div>
+
+<script>
+  var linkRegex = /\s\[Link:\s.*\]/g;
+
+  setActive("{{active|safe}}");
+  var post = "{{post|safe}}";
+  post = post.substring(1, post.length - 1);
+
+  var addNewLine = function(text) {
+    var newTextList = [];
+    var textList = text.split("\n");
+    console.log(textList[0].indexOf("#"));
+    console.log(textList[0]);
+    if (textList[0].indexOf("#") === 0) {
+      ReactDOM.render(React.createElement('h1',
+        {key: 0}, textList[0].substring(2)),
+        document.getElementById('header'));
+    } else {
+      newTextList.push(textList[0]);
+    }
+    for(var i=1; i<textList.length; i++) {
+      newTextList.push(React.createElement('br', {key: i}));
+      if (textList[i].length > 0) {
+        if (linkRegex.test(textList[i])) {
+          var linkIndex = textList[i].search(linkRegex);
+          var firstHalf = textList[i].substring(0, linkIndex);
+          var secondHalf = textList[i].substring(linkIndex);
+          var match = secondHalf.match(linkRegex)[0];
+          match = match.replace(" [Link: ", "");
+          match = match.replace("]", "");
+          secondHalf = secondHalf.replace(linkRegex, "") + " ";
+          var firstList = firstHalf.split(" ");
+          var hyperLinkWord = firstList[firstList.length - 1];
+          firstList.pop();
+          firstHalf  = firstList.join(" ") + " ";
+
+          newTextList.push(firstHalf);
+          newTextList.push(React.createElement('a', {key: "hyperlink" + newTextList.length, href: match}, hyperLinkWord));
+          newTextList.push(secondHalf);
+        } else {
+          newTextList.push(textList[i]);
+        }
+      }
+    };
+    return newTextList;
+  };
+  
+  const rootElement = React.createElement('p', {}, addNewLine(post));
+  ReactDOM.render(rootElement, document.getElementById('content'));
+
+</script>
