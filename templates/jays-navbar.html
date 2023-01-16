@@ -1,9 +1,44 @@
 <div id="navigation-bar"></div>
 
+<style type="text/css">
+  .jays-nav{
+    padding-left: 2vw;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  #navigation-bar{
+    position: absolute;
+    background-color: #333;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  #navigation-bar a{
+    text-decoration: none;
+    color: white;
+    height: 100%;
+    display: block;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  #navigation-bar a:hover{
+    background-color: rgb(37, 37, 37);
+  }
+  li {
+    display: inline-block;
+    height: 100%;
+  }
+  h1 + p {
+    font-weight: 900;
+    font-size: smaller;
+  }
+</style>
 <script>
 const c = React.createElement;
-// create classes
-//style: "body { padding-top: 70px; }" 
 
 const NavBar =
   React.createElement( "nav", { className: "navbar navbar-inverse navbar-fixed-top"},
@@ -22,7 +57,6 @@ const NavBar =
     );
 	    
 ReactDOM.render(NavBar, document.getElementById("navigation-bar"));
-// render NavBar
 
 var setActive = function(selection) {
   var childNodes = document.getElementsByClassName("jays-nav")[0].childNodes;
@@ -34,4 +68,5 @@ var setActive = function(selection) {
     }
   }
 };
+
 </script>

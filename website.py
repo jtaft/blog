@@ -1,20 +1,27 @@
-from flask import Flask, render_template
-from flask import request, jsonify, redirect, session, url_for
-from werkzeug import secure_filename
-from storage import get_archive, get_file_text
-import pymysql.cursors
+from flask import Flask, render_template, send_from_directory
+import os
 
+BLOG = './templates/blogposts/'
 app = Flask(__name__)
 
 def escape_double_quotes(text):
     new = text.replace('"', r"\"")
     return new
 
+def getlatestpost(posts):
+  latest = posts[0]
+  latesttime = os.stat(BLOG+posts[0]).st_ctime
+  for post in posts:
+    time = os.stat(BLOG+post).st_mtime
+    if time > latesttime:
+      latest = post
+      latesttime = time
+  return latest
+
 @app.route('/')
 def home():
-    archive = get_archive()
-    recent_post = get_file_text(archive[sorted(archive.keys(), reverse=True)[0]])
-    recent_post = escape_double_quotes(repr(recent_post))
+    archive = os.listdir(BLOG)
+    recent_post = 'blogposts/' + getlatestpost(archive)
     return render_template("home.html", post=recent_post, active="Home")
 
 @app.route('/about')
@@ -23,13 +30,14 @@ def about():
 
 @app.route('/archive')
 def projects():
-    archive = get_archive()
+    archive = os.listdir(BLOG)
+
     return render_template("archive.html", archive=archive)
 
 @app.route('/archive/<post>')
 def post(post):
-    post_text = escape_double_quotes(repr(get_file_text(post)))
-    return render_template("home.html", post=post_text, active="Archive")
+    postpath = 'blogposts/' + post
+    return render_template("home.html", post=postpath, active="Archive")
 
 if __name__ == "__main__":
     app.run()
