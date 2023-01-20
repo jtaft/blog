@@ -1,27 +1,27 @@
-{% include 'imports.html' %}
-{% include 'jays-navbar.html' %}
+<div class="body-container">
+  {% include 'imports.html' %}
+  {% include 'jays-navbar.html' %}
 
-<style type="text/css">
-  body{
-    margin: 5vw;
-    margin-top: 7vh;
-    font-family: "Courier New", Courier, monospace;
-  }
-</style>
-
-
-<div id="header"></div>
-<div id="content">{% include post %}</div>
-
-<script>
-  document.getElementById("content").getElementsByTagName("style")[0].remove();
-  //document.getElementsByTagName('body')[0].className = "";
-
-
-  var links = document.getElementsByTagName('a');
-  for(link of links) {
-    if (!link.getAttribute("href").startsWith("/")){
-      link.setAttribute("target", "_blank");
+  <style type="text/css">
+    p {
+      white-space: pre-wrap;
     }
-  };
-</script>
+  </style>
+
+  <div id="content">{% include post %}</div>
+
+  <script>
+    document.getElementById("content").getElementsByTagName("style")[0].remove();
+  //&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    for (p of document.getElementsByTagName('p')){
+      p.textContent = p.textContent.replace("        ", "   ")
+    }
+
+    var links = document.getElementsByTagName('a');
+    for(link of links) {
+      if (!link.getAttribute("href").startsWith("/")){
+        link.setAttribute("target", "_blank");
+      }
+    };
+  </script>
+</div>

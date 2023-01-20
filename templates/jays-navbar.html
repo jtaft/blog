@@ -23,6 +23,7 @@
     padding-right: 0.5em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+    font-size: 2vh;
   }
 
   #navigation-bar a:hover{
@@ -35,6 +36,11 @@
   h1 + p {
     font-weight: 900;
     font-size: smaller;
+  }
+  body{
+    margin: 5vw;
+    margin-top: 7vh;
+    font-family: "Courier New", Courier, monospace;
   }
 </style>
 <script>
@@ -55,7 +61,7 @@ const NavBar =
         )
       )
     );
-	    
+
 ReactDOM.render(NavBar, document.getElementById("navigation-bar"));
 
 var setActive = function(selection) {
